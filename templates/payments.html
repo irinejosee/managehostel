@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-bottom: 20px;">Payment Management</h1>
+
+<form method="POST" action="/add_payment" class="form-box">
+
+    <select name="student_id" required>
+        <option value="">Select Student</option>
+        {% for student in students %}
+            <option value="{{ student[0] }}">
+                {{ student[1] }} ({{ student[0] }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <input type="number" name="amount" placeholder="Amount" required>
+    <input type="text" name="month" placeholder="Month (e.g. Jan-2026)" required>
+
+    <button type="submit">Add Payment</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Student ID</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Month</th>
+        <th>Action</th>
+    </tr>
+
+    {% for payment in payments %}
+    <tr>
+        <td>{{ payment[0] }}</td>
+        <td>{{ payment[1] }}</td>
+        <td>₹{{ payment[2] }}</td>
+        <td>{{ payment[3] }}</td>
+        <td>{{ payment[4] }}</td>
+        <td>
+            <a href="/delete_payment/{{ payment[0] }}" class="delete-btn">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+import tkinter as tk
+from tkinter import messagebox
+from ui.dashboard import open_dashboard
+
+def open_login():
+
+    root = tk.Tk()
+    root.title("Hostel Management System")
+    root.geometry("900x500")
+    root.resizable(False, False)
+
+    # Left side (Blue panel)
+    left_frame = tk.Frame(root, bg="#2c3e50", width=450, height=500)
+    left_frame.pack(side="left", fill="both")
+
+    tk.Label(left_frame, text="Hostel Management",
+             bg="#2c3e50", fg="white",
+             font=("Arial", 24, "bold")).place(x=80, y=200)
+
+    # Right side (Login form)
+    right_frame = tk.Frame(root, bg="white", width=450, height=500)
+    right_frame.pack(side="right", fill="both")
+
+    tk.Label(right_frame, text="Welcome Back!",
+             bg="white", fg="#2c3e50",
+             font=("Arial", 20, "bold")).place(x=130, y=100)
+
+    tk.Label(right_frame, text="Username", bg="white").place(x=80, y=180)
+    username = tk.Entry(right_frame, width=30)
+    username.place(x=80, y=210)
+
+    tk.Label(right_frame, text="Password", bg="white").place(x=80, y=250)
+    password = tk.Entry(right_frame, width=30, show="*")
+    password.place(x=80, y=280)
+
+    def login():
+        if username.get() == "admin" and password.get() == "admin":
+            root.destroy()
+            open_dashboard()
+        else:
+            messagebox.showerror("Error", "Invalid Login")
+
+    tk.Button(right_frame, text="Login",
+              bg="#2c3e50", fg="white",
+              width=25, command=login).place(x=80, y=330)
+
+    root.mainloop()

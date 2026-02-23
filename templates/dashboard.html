@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-bottom: 20px;">Dashboard Overview</h1>
+
+<div class="cards">
+
+    <div class="card blue">
+        <h2>{{ total_students }}</h2>
+        <p>Total Students</p>
+    </div>
+
+    <div class="card green">
+        <h2>{{ total_rooms }}</h2>
+        <p>Total Rooms</p>
+    </div>
+
+    <div class="card orange">
+        <h2>{{ full_rooms }}</h2>
+        <p>Full Rooms</p>
+    </div>
+
+    <div class="card red">
+        <h2>₹{{ revenue }}</h2>
+        <p>Total Revenue</p>
+    </div>
+
+</div>
+{% endblock %}

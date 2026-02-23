@@ -1,0 +1,77 @@
+import tkinter as tk
+from tkinter import ttk
+from db import connect_db
+
+
+def open_reports():
+
+    report_window = tk.Toplevel()
+    report_window.title("Reports")
+    report_window.geometry("1100x650")
+    report_window.resizable(False, False)
+
+    tk.Label(report_window,
+             text="Reports Dashboard",
+             font=("Arial", 22, "bold")).pack(pady=20)
+
+    # =========================
+    # STUDENT REPORT TABLE
+    # =========================
+    tk.Label(report_window,
+             text="Student Room Report",
+             font=("Arial", 14, "bold")).pack(pady=10)
+
+    student_columns = ("Student ID", "Name", "Room No", "Type", "Rent")
+
+    student_table = ttk.Treeview(report_window,
+                                 columns=student_columns,
+                                 show="headings",
+                                 height=6)
+
+    for col in student_columns:
+        student_table.heading(col, text=col)
+        student_table.column(col, width=200)
+
+    student_table.pack(pady=10)
+
+    # =========================
+    # PAYMENT SUMMARY TABLE
+    # =========================
+    tk.Label(report_window,
+             text="Payment Summary",
+             font=("Arial", 14, "bold")).pack(pady=10)
+
+    payment_columns = ("Student ID", "Total Paid")
+
+    payment_table = ttk.Treeview(report_window,
+                                 columns=payment_columns,
+                                 show="headings",
+                                 height=6)
+
+    for col in payment_columns:
+        payment_table.heading(col, text=col)
+        payment_table.column(col, width=300)
+
+    payment_table.pack(pady=10)
+
+    # =========================
+    # LOAD DATA
+    # =========================
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    # Student Report
+    cursor.execute("SELECT * FROM student_report")
+    student_rows = cursor.fetchall()
+
+    for row in student_rows:
+        student_table.insert("", "end", values=row)
+
+    # Payment Summary
+    cursor.execute("SELECT * FROM payment_summary")
+    payment_rows = cursor.fetchall()
+
+    for row in payment_rows:
+        payment_table.insert("", "end", values=row)
+
+    conn.close()

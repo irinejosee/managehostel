@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-bottom:20px;">Attendance Tracking</h1>
+
+<form method="GET" action="/attendance" style="margin-bottom:20px;">
+    <input type="date" name="date" value="{{ selected_date }}">
+    <button type="submit">Refresh</button>
+</form>
+
+<form method="POST" action="/mark_attendance">
+
+    <input type="hidden" name="date" value="{{ selected_date }}">
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Status</th>
+        </tr>
+
+        {% for student in students %}
+        <tr>
+            <td>
+                {{ student[0] }}
+                <input type="hidden" name="student_id" value="{{ student[0] }}">
+            </td>
+
+            <td>{{ student[1] }}</td>
+
+            <td>
+                <select name="status_{{ student[0] }}">
+                    <option value="Present"
+                        {% if attendance_records.get(student[0]) == "Present" %}selected{% endif %}>
+                        Present
+                    </option>
+
+                    <option value="Absent"
+                        {% if attendance_records.get(student[0]) == "Absent" %}selected{% endif %}>
+                        Absent
+                    </option>
+                </select>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <button type="submit">Save Attendance</button>
+
+</form>
+{% endblock %}

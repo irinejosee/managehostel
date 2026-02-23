@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hostel Management System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fa fa-building"></i>
+            <span>Hostel Management</span>
+        </div>
+
+        <a href="/">
+            <i class="fa fa-chart-line"></i>
+            Dashboard
+        </a>
+
+        <a href="/rooms">
+            <i class="fa fa-bed"></i>
+            Rooms
+        </a>
+
+        <a href="/students">
+            <i class="fa fa-user-graduate"></i>
+            Students
+        </a>
+
+        <a href="/payments">
+            <i class="fa fa-money-bill"></i>
+            Payments
+        </a>
+
+        <a href="/attendance">
+    <i class="fa fa-calendar-check"></i>
+    Attendance
+</a>
+
+        <a href="#">
+            <i class="fa fa-file-alt"></i>
+            Reports
+        </a>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="admin-info">
+                <i class="fa fa-user"></i>
+                Admin (Admin)
+            </div>
+
+            <button class="logout-btn">
+                <i class="fa fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+
+        <!-- PAGE CONTENT -->
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

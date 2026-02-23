@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="margin-bottom: 20px;">Room Management</h1>
+
+<form method="POST" action="/add_room" class="form-box">
+    <input type="text" name="room_no" placeholder="Room No" required>
+
+    <select name="type" required>
+        <option value="">Select Type</option>
+        <option>Single</option>
+        <option>Double</option>
+        <option>Triple</option>
+    </select>
+
+    <input type="number" name="capacity" placeholder="Capacity" required>
+    <input type="number" name="rent" placeholder="Rent" required>
+
+    <button type="submit">Add Room</button>
+</form>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Room No</th>
+        <th>Type</th>
+        <th>Capacity</th>
+        <th>Occupied</th>
+        <th>Rent</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for room in rooms %}
+    <tr>
+        <td>{{ room[0] }}</td>
+        <td>{{ room[1] }}</td>
+        <td>{{ room[2] }}</td>
+        <td>{{ room[3] }}</td>
+        <td>{{ room[4] }}</td>
+        <td>{{ room[5] }}</td>
+
+        <td>
+            {% if room[6] == "Empty" %}
+                <span class="status-badge status-empty">Empty</span>
+            {% elif room[6] == "Partially Filled" %}
+                <span class="status-badge status-partial">Partially Filled</span>
+            {% else %}
+                <span class="status-badge status-full">Full</span>
+            {% endif %}
+        </td>
+
+        <td>
+            <a href="/delete_room/{{ room[0] }}" class="delete-btn">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
